@@ -44,11 +44,11 @@ bzcat %{SOURCE2} > ipv4.cdb
 
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
-install -d %{buildroot}%{_localstatedir}/%{mod_name}
+install -d %{buildroot}%{_localstatedir}/lib/%{mod_name}
 
 install -m0755 .libs/%{mod_so} %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
-install -m0644 ipv4.cdb %{buildroot}%{_localstatedir}/%{mod_name}/ipv4.cdb
+install -m0644 ipv4.cdb %{buildroot}%{_localstatedir}/lib/%{mod_name}/ipv4.cdb
 
 %post
 if [ -f /var/lock/subsys/httpd ]; then
@@ -70,4 +70,4 @@ fi
 %doc README process_data.pl process_ip.pl update.pl
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
-%attr(0644,root,root) %config(noreplace) %{_localstatedir}/%{mod_name}/ipv4.cdb
+%attr(0644,root,root) %config(noreplace) %{_localstatedir}/lib/%{mod_name}/ipv4.cdb
