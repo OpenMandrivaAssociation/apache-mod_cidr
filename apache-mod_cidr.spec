@@ -5,21 +5,22 @@
 
 Summary:	Does hash lookups on the inbound connection source in a network router style
 Name:		apache-%{mod_name}
-Version:	0.03
-Release:	%mkrel 4
+Version:	0.04
+Release:	%mkrel 1
 Group:		System/Servers
 License:	Apache License
 URL:		http://www.s5h.net/code/mod-cidr/
 Source0:	http://www.s5h.net/code/mod-cidr/%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
-Source2:	http://www.s5h.net/code/ipv4.cdb.bz2
+Source2:	ipv4.cdb.bz2
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
 Requires(pre):	apache >= 2.2.0
 Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
-BuildRequires:  apache-devel >= 2.2.0
+BuildRequires:	apache-devel >= 2.2.0
+BuildRequires:	dos2unix
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -34,13 +35,15 @@ hash. Lookups are extremely fast since CDB interface is very quick.
 cp %{SOURCE1} .
 bzcat %{SOURCE2} > ipv4.cdb
 
+dos2unix -U numtoip.pm
+
 %build
 
 %{_sbindir}/apxs -c %{mod_name}.c cdb.c byte_copy.c seek_set.c error.c \
     uint32_pack.c uint32_unpack.c byte_diff.c cdb_hash.c
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
@@ -63,11 +66,11 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README process_data.pl process_ip.pl update.pl
+%doc README numtoip.pm process_data.pl update.pl
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
 %attr(0644,root,root) %config(noreplace) /var/lib/%{mod_name}/ipv4.cdb
