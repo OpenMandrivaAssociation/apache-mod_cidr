@@ -35,7 +35,7 @@ hash. Lookups are extremely fast since CDB interface is very quick.
 cp %{SOURCE1} .
 bzcat %{SOURCE2} > ipv4.cdb
 
-dos2unix -U numtoip.pm
+dos2unix numtoip.pm
 
 %build
 
