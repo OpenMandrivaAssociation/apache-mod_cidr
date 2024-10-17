@@ -9,7 +9,7 @@ Version:	0.04
 Release:	%mkrel 7
 Group:		System/Servers
 License:	Apache License
-URL:		http://www.s5h.net/code/mod-cidr/
+URL:		https://www.s5h.net/code/mod-cidr/
 Source0:	http://www.s5h.net/code/mod-cidr/%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
 Source2:	ipv4.cdb.bz2
