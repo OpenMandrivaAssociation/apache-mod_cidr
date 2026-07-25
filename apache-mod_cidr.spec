@@ -6,7 +6,7 @@
 Summary:	Does hash lookups on the inbound connection source in a network router style
 Name:		apache-%{mod_name}
 Version:	0.04
-Release:	%mkrel 7
+Release:	8
 Group:		System/Servers
 License:	Apache License
 URL:		https://www.s5h.net/code/mod-cidr/
